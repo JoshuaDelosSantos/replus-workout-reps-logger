@@ -1,0 +1,23 @@
+{% extends 'main.html' %} 
+
+
+{% block title %}
+    Session
+{% endblock %}
+
+{% block content %}
+<h1>Session</h1>
+
+<div>
+  <div>
+    <!-- Start a python for loop in html-->
+    {% for exercise in session %}
+    <div>
+      <h5>{{exercise.name}} -- {{exercise.reps}} -- {{exercise.weight}}</h5>
+    </div>
+    <!-- End a python for loop in html-->
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

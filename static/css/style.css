@@ -1,0 +1,29 @@
+body {
+    background-color: black;
+    color: whitesmoke;
+    margin: 0;
+}
+
+/* --Navigation Bar-- */
+.navBar {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* Standard */
+    margin: 0;
+    padding: 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: #0B192C;
+}
+
+.navBar a {
+    color: whitesmoke;
+    padding: 20px;
+    font-size: 50px;
+    text-decoration: none;
+}
+
+.navBar a:hover{
+    background-color: rgba(0,0,0,0.1);
+}
