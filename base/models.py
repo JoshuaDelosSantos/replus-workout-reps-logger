@@ -12,10 +12,22 @@ MAX_DIGITS = 5
 NUMBER_DECIMAL_PLACE = 2
 
 class Session(models.Model):
-    name = models.CharField(max_length=MAX_CHAR_FIELD)
+    name = models.CharField(max_length=MAX_CHAR_FIELD, unique=True)  # Django will raise an IntegrityError when creating a duplicate.
     
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        """
+        Override the save method to enforce uniqueness of the session name.
+        
+        If a session with the same name already exists in the database and 
+        this is a new instance (self.pk is None), raise a ValidationError.
+        This prevents duplicate session names from being saved.
+        """
+        if Session.objects.filter(name=self.name).exists() and not self.pk:
+            raise ValidationError(f"A session with the name '{self.name}' already exists.")
+        super().save(*args, **kwargs)
     
 
 class Exercise(models.Model):
