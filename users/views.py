@@ -1,3 +1,10 @@
-from django.shortcuts import render
+"""
+Author: Joshua Delos Santos
+Date: 17/10/2024
+"""
 
-# Create your views here.
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def register(request):
+    return render(request, 'users/register.html')

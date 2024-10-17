@@ -10,5 +10,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('base.urls'))  # Include urls from the base app
+    path('', include('base.urls')),  # Include urls from the base app
+    path('users/', include('users.urls'))  # Include urls from the users app
 ]
