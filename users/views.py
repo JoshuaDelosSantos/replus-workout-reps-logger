@@ -5,9 +5,9 @@ Date: 17/10/2024
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
-def register(request):
+def register_view(request):
     """
     Handle user registration.
     Args:
@@ -26,7 +26,7 @@ def register(request):
     return render(request, 'users/register.html', {"form":form})
 
 
-def login(request):
+def login_view(request):
     """
     Handle user login.
     Args:
@@ -42,3 +42,15 @@ def login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'users/login.html', {"form":form})
+
+
+def logout_view(request):
+    """
+    Handle user logout.
+
+    Args:
+        request (HttpRequest): The incoming request.
+    """
+    if request.method == "POST":
+        logout(request)
+        return redirect('home')
