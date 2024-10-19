@@ -7,5 +7,55 @@
 {% block content %}
 <h1>Register</h1>
 
+<form class="form-with-validation" action="/users/register/" method="post">
+    {% csrf_token %}
+
+    <!-- Username field -->
+    <div class="form-username-field">
+        <label for="{{ form.username.id_for_label }}">Username:</label>
+        {{ form.username }}
+
+        <!-- Display username errors -->
+        {% if form.username.errors %}
+        <div class="error">
+            {% for error in form.username.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Password fields -->
+    <div class="form-password1-field">
+        <label for="{{ form.password1.id_for_label }}">Password:</label>
+        {{ form.password1 }}
+        
+        <!-- Display password1 errors -->
+        {% if form.password1.errors %}
+        <div class="error">
+            {% for error in form.password1.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Confirm Password field -->
+    <div class="form-passwod2-field">
+        <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+        {{ form.password2 }}
+
+        <!-- Display password2 errors -->
+        {% if form.password2.errors %}
+        <div class="error">
+            {% for error in form.password2.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+  
+    <button>Submit</button>
+</form>
 
 {% endblock %}
