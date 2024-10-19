@@ -1,8 +1,18 @@
 <nav class="navBar">
-  <!-- Ensure '/' before link string reset.-->
-  <a href="/">Home</a>
-  <a href="/profile">Profile</a>
-  <a href="/users/login">Login</a>
-  <a href="/users/register"> Register</a>
-  <a href="/contact">Contact</a>
+  <a href="{% url 'home' %}">Home</a>
+  <a href="{% url 'profile' %}">Profile</a>
+
+  {% if user.is_authenticated %}
+    <!-- Show logout button only if the user is logged in -->
+    <form class="logout" action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button class="logout-button">Logout</button>
+    </form>
+  {% else %}
+    <!-- Show login and register links if user is not logged in -->
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+  {% endif %}
+
+  <a href="{% url 'contact' %}">Contact</a>
 </nav>
