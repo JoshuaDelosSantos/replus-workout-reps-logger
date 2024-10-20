@@ -6,6 +6,9 @@ Date: 07/10/2024
 """
 
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils.text import slugify
+from django.core.exceptions import ValidationError 
 
 MAX_CHAR_FIELD = 50
 MAX_DIGITS = 5
@@ -14,6 +17,7 @@ NUMBER_DECIMAL_PLACE = 2
 class Session(models.Model):
     name = models.CharField(max_length=MAX_CHAR_FIELD, unique=True)  # Django will raise an IntegrityError when creating a duplicate.
     slug = models.SlugField(unique=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sessions')  # Link to User
     
     def __str__(self):
         return self.name
@@ -23,14 +27,13 @@ class Session(models.Model):
         Override the save method to enforce uniqueness of the session name and 
         automatically set the slug based on the session name.
         """
-        # Check for duplicate session names
-        if Session.objects.filter(name=self.name).exists() and not self.pk:
+    def save(self, *args, **kwargs):
+        if Session.objects.filter(name=self.name, user=self.user).exists() and not self.pk:
             raise ValidationError(f"A session with the name '{self.name}' already exists.")
-
-        # Automatically generate the slug from the name
+        
         if not self.slug or self.slug != slugify(self.name):
             self.slug = slugify(self.name)
-        
+            
         super().save(*args, **kwargs)
     
 
@@ -38,6 +41,7 @@ class Exercise(models.Model):
     name = models.CharField(max_length=MAX_CHAR_FIELD)
     session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='exercises', null=True)
     slug = models.SlugField(unique=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='exercises')
     
     def __str__(self):
         return self.name
@@ -62,6 +66,7 @@ class Line(models.Model):
     weight = models.DecimalField(max_digits=MAX_DIGITS, decimal_places=NUMBER_DECIMAL_PLACE)
     reps = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lines') 
     
     def __str__(self):
         return f"{self.weight} for {self.reps} reps at {self.date}"
