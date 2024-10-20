@@ -7,14 +7,17 @@ Date: 07/10/2024
 
 from django.test import TestCase
 from .models import Session, Exercise, Line
+from django.contrib.auth.models import User
 
 class SessionModelTests(TestCase):
     def setUp(self):
         """
         Set up a basic Session instance with associated Exercises for testing.
         """
-        self.session = Session.objects.create(name="Strength Training")
-        self.exercise = Exercise.objects.create(session=self.session, name="Squats")
+        self.user1 = User.objects.create_user(username="testuser1", password="testpass1")
+        self.user2 = User.objects.create_user(username="testuser2", password="testpass2")
+        self.session = Session.objects.create(name="Strength Training", user=self.user1)  # Associate session with user1
+        self.exercise = Exercise.objects.create(session=self.session, name="Squats", user=self.user1)  # Associate exercise with user1
 
     def test_exercise_count_in_session(self):
         """
@@ -22,13 +25,21 @@ class SessionModelTests(TestCase):
         """
         self.assertEqual(self.session.exercises.count(), 1)
 
+    def test_user_cannot_access_other_users_session(self):
+        """
+        Test that user2 cannot access sessions created by user1.
+        """
+        self.assertFalse(self.user2.sessions.filter(id=self.session.id).exists())
+
 class ExerciseModelTests(TestCase):
     def setUp(self):
         """
         Set up a basic Exercise instance with related Line instances for testing.
         """
-        self.session = Session.objects.create(name="Strength Training")
-        self.exercise = Exercise.objects.create(name="Squats", session=self.session)
+        self.user1 = User.objects.create_user(username="testuser1", password="testpass1")
+        self.user2 = User.objects.create_user(username="testuser2", password="testpass2")
+        self.session = Session.objects.create(name="Strength Training", user=self.user1)  # Associate session with user1
+        self.exercise = Exercise.objects.create(name="Squats", session=self.session, user=self.user1)  # Associate exercise with user1
 
     def test_determine_average_reps_with_no_lines(self):
         """
@@ -41,17 +52,23 @@ class ExerciseModelTests(TestCase):
         """
         Test average reps calculation with a single Line instance.
         """
-        Line.objects.create(exercise=self.exercise, weight=100, reps=10)
+        Line.objects.create(exercise=self.exercise, weight=100, reps=10, user=self.user1)  # Associate line with user1
         average_reps = self.exercise.determine_average_reps()
         self.assertEqual(average_reps, 10)
+
+    def test_user_cannot_access_other_users_exercise(self):
+        """
+        Test that user2 cannot access exercises created by user1.
+        """
+        self.assertFalse(self.user2.exercises.filter(id=self.exercise.id).exists())
 
     def test_determine_average_reps_with_multiple_lines(self):
         """
         Test average reps calculation with multiple Line instances.
         """
-        Line.objects.create(exercise=self.exercise, weight=100, reps=10)
-        Line.objects.create(exercise=self.exercise, weight=150, reps=15)
-        Line.objects.create(exercise=self.exercise, weight=200, reps=20)
+        Line.objects.create(exercise=self.exercise, weight=100, reps=10, user=self.user1)  # Associate line with user1
+        Line.objects.create(exercise=self.exercise, weight=150, reps=15, user=self.user1)  # Associate line with user1
+        Line.objects.create(exercise=self.exercise, weight=200, reps=20, user=self.user1)  # Associate line with user1
 
         average_reps = self.exercise.determine_average_reps()
         # Total reps = 10 + 15 + 20 = 45; Number of lines = 3
@@ -62,6 +79,14 @@ class LineModelTests(TestCase):
         """
         Set up a basic Line instance with an associated Exercise for testing.
         """
-        self.session = Session.objects.create(name="Strength Training")
-        self.exercise = Exercise.objects.create(name="Squats", session=self.session)
-        self.line = Line.objects.create(exercise=self.exercise, weight=100.00, reps=10)
+        self.user1 = User.objects.create_user(username="testuser1", password="testpass1")
+        self.user2 = User.objects.create_user(username="testuser2", password="testpass2")
+        self.session = Session.objects.create(name="Strength Training", user=self.user1)  # Associate session with user1
+        self.exercise = Exercise.objects.create(name="Squats", session=self.session, user=self.user1)  # Associate exercise with user1
+        self.line = Line.objects.create(exercise=self.exercise, weight=100.00, reps=10, user=self.user1)  # Associate line with user1
+
+    def test_user_cannot_access_other_users_line(self):
+        """
+        Test that user2 cannot access lines created by user1.
+        """
+        self.assertFalse(self.user2.lines.filter(id=self.line.id).exists())
