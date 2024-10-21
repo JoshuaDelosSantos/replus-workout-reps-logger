@@ -7,9 +7,10 @@ Date: 02/09/2024
 
 from django.urls import path
 from . import views
+from .views import HomeView
 
 urlpatterns = [
-    path('', views.home, name="home"),
+    path('', HomeView.as_view(), name="home"),
     path('session/', views.sessions, name="session"),
     path('statistics/', views.statistics, name="statistics"),
     path('profile/', views.profile, name="profile"),
