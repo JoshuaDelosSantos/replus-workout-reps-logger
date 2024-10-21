@@ -31,22 +31,6 @@ class UserData:
         self.user = user
 
 
-    def get_user_details(self):
-        """
-        Returns the basic details of the user.
-
-        Returns:
-            dict: A dictionary containing the user's username, email, 
-                  first name, and last name.
-        """
-        return {
-            "username": self.user.username,
-            "email": self.user.email,
-            "first_name": self.user.first_name,
-            "last_name": self.user.last_name,
-        }
-
-
     def get_user_sessions(self):
         """
         Returns all sessions associated with the user.
