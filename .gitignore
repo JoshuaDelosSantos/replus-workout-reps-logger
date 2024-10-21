@@ -5,3 +5,5 @@ base/__pycache__
 users/__pycache__
 .env
 replus/__pycache__
+users/api/__pycache__
+users/tests/__pycache__
