@@ -8,3 +8,4 @@ replus/__pycache__
 users/api/__pycache__
 users/tests/__pycache__
 base/views/__pycache__
+users/view/__pycache__
