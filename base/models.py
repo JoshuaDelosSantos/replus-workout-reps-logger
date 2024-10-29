@@ -27,7 +27,6 @@ class Session(models.Model):
         Override the save method to enforce uniqueness of the session name and 
         automatically set the slug based on the session name.
         """
-    def save(self, *args, **kwargs):
         if Session.objects.filter(name=self.name, user=self.user).exists() and not self.pk:
             raise ValidationError(f"A session with the name '{self.name}' already exists.")
         
