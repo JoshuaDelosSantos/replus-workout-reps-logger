@@ -9,7 +9,11 @@ from django.test import TestCase
 from .models import Session, Exercise, Line
 from django.contrib.auth.models import User
 
+
 class SessionModelTests(TestCase):
+    """
+    Test cases for the Session model. 
+    """
     def setUp(self):
         """
         Set up a basic Session instance with associated Exercises for testing.
@@ -31,7 +35,11 @@ class SessionModelTests(TestCase):
         """
         self.assertFalse(self.user2.sessions.filter(id=self.session.id).exists())
 
+
 class ExerciseModelTests(TestCase):
+    """
+    Test cases for the Exercise model.
+    """
     def setUp(self):
         """
         Set up a basic Exercise instance with related Line instances for testing.
@@ -74,7 +82,11 @@ class ExerciseModelTests(TestCase):
         # Total reps = 10 + 15 + 20 = 45; Number of lines = 3
         self.assertEqual(average_reps, 15)  # 45 / 3 = 15
 
+
 class LineModelTests(TestCase):
+    """
+    Testcases for the Line model. 
+    """
     def setUp(self):
         """
         Set up a basic Line instance with an associated Exercise for testing.
