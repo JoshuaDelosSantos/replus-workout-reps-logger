@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h1>Sessions</h1>
+
+{% if user.is_authenticated %}
+    <p>Hello {{ user.username }}</p>
+    
+    <h2>Your Sessions</h2>
+    <ul>
+        {% for session in sessions %}
+            <li>{{ session.name }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Add a New Session</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Session</button>
+    </form>
+{% else %}
+    <p>You need to be logged in to view your sessions.</p>
+{% endif %}
+
+{% endblock %}
