@@ -14,7 +14,7 @@ class UserData:
         user (User): The Django User object for which the data is being queried.
         
     Example usage:
-        user = User(request.user)
+        user = UserData(request.user)
         user_details = user_data.get_user_details()
         user_sessions = user_data.get_user_sessions()
         user_exercises = user_data.get_user_exercises()
