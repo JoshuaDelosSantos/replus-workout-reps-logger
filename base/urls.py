@@ -12,5 +12,5 @@ from .views.sessions_view import SessionsView
 
 urlpatterns = [
     path('', HomeView.as_view(), name="home"),
-    path('sessions/', SessionsView.as_view(), name="sessions_view"),
+    path('sessions/', SessionsView.as_view(), name="sessions"),
 ]
