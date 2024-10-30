@@ -4,6 +4,7 @@ Date: 21/10/2024
 """
 
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from base.models import Session, Exercise, Line
 
 class UserData:
@@ -49,7 +50,19 @@ class UserData:
             QuerySet: A QuerySet containing the user's exercises.
         """
         return Exercise.objects.filter(session__user=self.user)
+    
+    def get_exercises_by_session_slug(self, session_slug):
+        """
+        Returns exercises associated with the user filtered by the selected session slug.
 
+        Args:
+            session_slug (str): The slug of the session to filter exercises by.
+
+        Returns:
+            QuerySet: A QuerySet containing the exercises for the specified session.
+        """
+        session = get_object_or_404(Session, slug=session_slug, user=self.user)
+        return Exercise.objects.filter(session=session, user=self.user)
 
     def get_user_lines(self):
         """
