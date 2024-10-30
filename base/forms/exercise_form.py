@@ -1,3 +1,8 @@
+"""
+Author: Joshua Delos Santos
+Date: 31/10/2024
+"""
+
 from django import forms
 from base.models import Exercise
 
