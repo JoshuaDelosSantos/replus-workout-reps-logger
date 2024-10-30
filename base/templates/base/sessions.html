@@ -1,5 +1,9 @@
 {% extends 'main.html' %}
 
+{% block title %}
+    Sessions
+{% endblock %}
+
 {% block content %}
 <h1>Sessions</h1>
 
@@ -9,7 +13,7 @@
     <h2>Your Sessions</h2>
     <ul>
         {% for session in sessions %}
-            <li>{{ session.name }}</li>
+            <li><a href="{% url 'exercise' session.slug %}">{{ session.name }}</a></li>
         {% endfor %}
     </ul>
     
