@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.views import View
 from base.models import Session
 from base.forms.session_form import SessionForm
-from users.api.user_data import UserData
+from users.api.app_user import AppUser
 
 class SessionsView(LoginRequiredMixin, View):
     """
@@ -19,8 +19,8 @@ class SessionsView(LoginRequiredMixin, View):
         """
         Handle GET requests: display the list of sessions and the form to add a new session.
         """
-        user_data = UserData(request.user)
-        sessions = user_data.get_user_sessions()
+        user = AppUser(request.user)
+        sessions = user.get_user_sessions()
         form = SessionForm()
         
         context = {
@@ -34,19 +34,19 @@ class SessionsView(LoginRequiredMixin, View):
         """
         Handle POST requests: process the form to add a new session.
         """
-        user_data = UserData(request.user)
+        user = AppUser(request.user)
         form = SessionForm(request.POST)
         
         if form.is_valid():
             session = form.save(commit=False)
-            session.user = user
+            session.user = request.user
             try:
                 session.save()
                 return redirect('sessions')
             except ValidationError as e:
                 form.add_error(None, e)
         
-        sessions = user_data.get_user_sessions()
+        sessions = user.get_user_sessions()
         context = {
             'sessions': sessions,
             'form': form

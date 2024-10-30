@@ -1,7 +1,12 @@
+"""
+Author: Joshua Delos Santos
+Date: 31/10/2024
+"""
+
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 from base.models import Exercise, Session
-from users.api.user_data import UserData
+from users.api.app_user import AppUser
 from base.forms.exercise_form import ExerciseForm
 
 class ExerciseView(View):
@@ -13,13 +18,15 @@ class ExerciseView(View):
         """
         Handle GET requests to display the details of exercises in a session.
         """
-        user_data = UserData(request.user)
-        exercises = user_data.get_exercises_by_session_slug(session_slug)
+        user = AppUser(request.user)
+        session = get_object_or_404(Session, slug=session_slug, user=request.user)
+        exercises = user.get_exercises_by_session_slug(session_slug)
         form = ExerciseForm()
         
         context = {
             'exercises': exercises, 
-            'form': form
+            'form': form,
+            'session': session
         }
         
         return render(request, 'base/exercise.html', context)
@@ -28,7 +35,7 @@ class ExerciseView(View):
         """
         Handle POST requests to process the form to add a new exercise.
         """
-        user_data = UserData(request.user)
+        user = AppUser(request.user)
         session = get_object_or_404(Session, slug=session_slug, user=request.user)
         form = ExerciseForm(request.POST)
         
