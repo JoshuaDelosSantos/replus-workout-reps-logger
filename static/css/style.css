@@ -1,7 +1,8 @@
 body {
-    background-color: black;
+    background-color: #1A1A1D;
     color: whitesmoke;
     margin: 0;
+    font-family: Poppins, sans-serif;
 }
 
 /* --Navigation Bar-- */
@@ -14,7 +15,6 @@ body {
     padding: 0;
     flex-direction: row;
     justify-content: flex-end;
-    background-color: #0B192C;
 }
 
 .navBar a {
@@ -27,3 +27,49 @@ body {
 .navBar a:hover{
     background-color: rgba(0,0,0,0.1);
 }
+
+/* --Sessions app-- */
+/* --Sessions container-- */
+.sessions-content-container {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* Standard */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.sessions-container a {
+    text-decoration: none;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* Standard */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sessions-link {
+    padding: 10px;
+    color: white;
+}
+
+.sessions-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --Sessions form-- */
+.sessions-form-heading {
+    margin-bottom: 0;
+    padding-top: 20px;
+}
+
+.session-form-control {
+    background-color: whitesmoke;
+    border: 1px solid #909091;
+    border-radius: 10px;
+}
+

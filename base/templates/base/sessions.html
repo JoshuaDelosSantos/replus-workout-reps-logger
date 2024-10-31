@@ -4,27 +4,27 @@
     Sessions
 {% endblock %}
 
+<!--Session content-->
 {% block content %}
-<h1>Sessions</h1>
+<div class="sessions-content-container">
+    {% if user.is_authenticated %}
+        <h1 class="sessions-heading">Your Sessions</h1>
 
-{% if user.is_authenticated %}
-    <p>Hello {{ user.username }}</p>
-    
-    <h2>Your Sessions</h2>
-    <ul>
-        {% for session in sessions %}
-            <li><a href="{% url 'exercise' session.slug %}">{{ session.name }}</a></li>
-        {% endfor %}
-    </ul>
-    
-    <h2>Add a New Session</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Session</button>
-    </form>
-{% else %}
-    <p>You need to be logged in to view your sessions.</p>
-{% endif %}
+        <div class="sessions-container">
+            {% for session in sessions %}
+                <a class="sessions-link" href="{% url 'exercise' session.slug %}">{{ session.name }}</a>
+            {% endfor %}
+        </div>
 
+        <!--Session form-->
+        <h2 class="sessions-form-heading">Add a new session</h2>
+        <form class="sessions-form" method="post">
+            {% csrf_token %}
+            {{ form.name }}
+            <button class="sessions-form-button" type="submit">Add Session</button>
+        </form>
+    {% else %}
+        <p>You need to be logged in to view your sessions.</p>
+    {% endif %}
+</div>
 {% endblock %}
