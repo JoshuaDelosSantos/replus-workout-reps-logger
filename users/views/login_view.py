@@ -26,5 +26,5 @@ class LoginView(View):
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('home')
+            return redirect('sessions')
         return render(request, 'users/login.html', {"form": form})
