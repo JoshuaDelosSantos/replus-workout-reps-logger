@@ -11,7 +11,7 @@
     <ul>
         {% for exercise in exercises %}
             <li>
-                <h2>{{ exercise.name }}</h2>
+                <a href="{% url 'lines' session.slug exercise.slug %}">{{ exercise.name }}</a>
             </li>
         {% endfor %}
     </ul>
