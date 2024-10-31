@@ -90,19 +90,21 @@ class Exercise(models.Model):
     
 class Line(models.Model):
     """
-    The Line model represents a single set of an exercise, with a weight, reps, and date.
+    The Line model represents a single set of an exercise, with a weight, reps, date, and slug.
     
     Attributes:
         exercise (ForeignKey): A reference to the Exercise to which the line belongs.
         weight (DecimalField): The weight lifted for the set.
         reps (IntegerField): The number of repetitions performed for the set.
         date (DateTimeField): The date and time the set was performed.
+        slug (SlugField): A unique slug for the line, automatically generated from the exercise name and date.
         user (ForeignKey): A reference to the User who owns the line.
     """
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, related_name='lines')
     weight = models.DecimalField(max_digits=MAX_DIGITS, decimal_places=NUMBER_DECIMAL_PLACE)
     reps = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lines') 
     
     def __str__(self):
@@ -110,3 +112,12 @@ class Line(models.Model):
         Returns a string representation of the line.
         """
         return f"{self.weight} for {self.reps} reps at {self.date}"
+    
+    def save(self, *args, **kwargs):
+        """
+        Override the save method to automatically set the slug based on the exercise name and date.
+        """
+        if not self.slug or self.slug != slugify(f"{self.exercise.name}-{self.date}"):
+            self.slug = slugify(f"{self.exercise.name}-{self.date}")
+        
+        super().save(*args, **kwargs)
