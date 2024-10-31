@@ -20,7 +20,7 @@ class LinesView(View):
         """
         user = AppUser(request.user)
         exercise = get_object_or_404(Exercise, slug=exercise_slug, session__slug=session_slug, user=request.user)
-        lines = exercise.lines.all()
+        lines = user.get_lines_for_exercise(exercise_slug)
         form = LineForm()
         
         context = {
@@ -49,7 +49,7 @@ class LinesView(View):
             except ValidationError as e:
                 form.add_error(None, e)
         
-        lines = exercise.lines.all()
+        lines = user.get_lines_for_exercise(exercise_slug)
         context = {
             'exercise': exercise,
             'lines': lines,
