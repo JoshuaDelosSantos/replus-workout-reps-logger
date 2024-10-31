@@ -70,3 +70,16 @@ class AppUser:
             QuerySet: A QuerySet containing the lines related to the user's exercises.
         """
         return Line.objects.filter(exercise__session__user=self.user)
+
+    def get_lines_for_exercise(self, exercise_slug):
+        """
+        Returns lines associated with the user filtered by the selected exercise slug.
+
+        Args:
+            exercise_slug (str): The slug of the exercise to filter lines by.
+
+        Returns:
+            QuerySet: A QuerySet containing the lines for the specified exercise.
+        """
+        exercise = get_object_or_404(Exercise, slug=exercise_slug, session__user=self.user)
+        return Line.objects.filter(exercise=exercise)
