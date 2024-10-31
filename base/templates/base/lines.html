@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    Lines
+{% endblock %}
+
+{% block content %}
+<h1>Lines for Exercise: {{ exercise.name }}</h1>
+
+{% if lines %}
+    <ul>
+        {% for line in lines %}
+            <li>{{ line.weight }} kg for {{ line.reps }} reps on {{ line.date }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No lines found for this exercise.</p>
+{% endif %}
+
+<h2>Add a New Line</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Line</button>
+</form>
+
+<a href="{% url 'exercise' exercise.session.slug %}">Back to Exercises</a>
+{% endblock %}
