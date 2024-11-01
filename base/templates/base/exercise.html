@@ -4,27 +4,29 @@
     Exercise
 {% endblock %}
 
+<!--Exercise content-->
 {% block content %}
-<h1>Exercises for Session: {{ session.name }}</h1>
+<div class="exercises-content-container">
+    <h1 class="exercises-heading">Exercises for {{ session.name }}</h1>
 
-{% if exercises %}
-    <ul>
-        {% for exercise in exercises %}
-            <li>
-                <a href="{% url 'lines' session.slug exercise.slug %}">{{ exercise.name }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No exercises found for this session.</p>
-{% endif %}
+    <div class="exercises-container">
+        {% if exercises %}
+            {% for exercise in exercises %}
+                <a class="exercise-link" href="{% url 'lines' session.slug exercise.slug %}">{{ exercise.name }}</a>
+            {% endfor %}
+        {% else %}
+            <p class="no-exercises">No exercises found for this session.</p>
+        {% endif %}
+    </div>
 
-<h2>Add a New Exercise</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Exercise</button>
-</form>
+    <!--Exercise form-->
+    <h2 class="exercises-form-heading">Add New Exercise</h2>
+    <form class="exercises-form" method="post">
+        {% csrf_token %}
+        {{ form.name }}
+        <button class="exercises-form-button" type="submit">Add</button>
+    </form>
 
-<a href="{% url 'sessions' %}">Back to Sessions</a>
+    <a class="back-to-sessions-link" href="{% url 'sessions' %}">Back to Sessions</a>
+</div>
 {% endblock %}

@@ -46,14 +46,14 @@ class ExerciseView(View):
             try:
                 exercise.save()
                 return redirect('exercise', session_slug=session.slug)
-            except ValidationError as e:
+            except Exception as e:
                 form.add_error(None, e)
                 
+        exercises = user.get_exercises_by_session_slug(session_slug)        
         context = {
             'session': session, 
             'exercises': exercises, 
             'form': form
             }
         
-        exercises = user_data.get_exercises_by_session_slug(session_slug)
         return render(request, 'base/exercise.html', context)
