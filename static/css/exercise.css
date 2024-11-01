@@ -1,0 +1,80 @@
+/* --Exercises app-- */
+/* --Exercises container-- */
+.exercises-content-container {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* Standard */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.exercises-container {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* Standard */
+    flex-direction: column;
+    justify-content: center;
+}
+
+.exercise-link {
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    width: 300px;
+    background-color: #2f2f32;
+    margin: 1px auto;
+    box-shadow: 3px 15px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.exercise-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.no-exercises {
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    width: 300px;
+    background-color: #2f2f32;
+    margin: 1px auto;
+    border-radius: 10px;
+}
+
+.exercises-form-heading {
+    margin-bottom: 0;
+    padding-top: 20px;
+}
+
+.exercises-form-control {
+    background-color: whitesmoke;
+    border: 1px solid #909091;
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.exercises-form-button {
+    background-color: #4caf50;
+    color: whitesmoke;
+    border-radius: 10px;
+    border: 1px solid #4caf50;
+    padding: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.back-to-sessions-link {
+    margin-top: 20px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.back-to-sessions-link:hover {
+    text-decoration: underline;
+}
