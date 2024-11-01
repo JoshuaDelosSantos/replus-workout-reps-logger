@@ -29,7 +29,7 @@ class ExerciseView(View):
             'session': session
         }
         
-        return render(request, 'base/exercise.html', context)
+        return render(request, 'base/exercises.html', context)
     
     def post(self, request, session_slug):
         """
@@ -56,4 +56,4 @@ class ExerciseView(View):
             'form': form
             }
         
-        return render(request, 'base/exercise.html', context)
+        return render(request, 'base/exercises.html', context)

@@ -12,7 +12,7 @@
 
         <div class="sessions-container">
             {% for session in sessions %}
-                <a class="sessions-link" href="{% url 'exercise' session.slug %}">{{ session.name }}</a>
+                <a class="sessions-link" href="{% url 'exercises' session.slug %}">{{ session.name }}</a>
             {% endfor %}
         </div>
 
