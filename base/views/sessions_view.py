@@ -43,7 +43,7 @@ class SessionsView(LoginRequiredMixin, View):
             try:
                 session.save()
                 return redirect('sessions')
-            except ValidationError as e:
+            except Exception as e:
                 form.add_error(None, e)
         
         sessions = user.get_user_sessions()

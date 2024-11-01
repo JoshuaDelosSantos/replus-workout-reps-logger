@@ -14,3 +14,6 @@ class ExerciseForm(forms.ModelForm):
     class Meta:
         model = Exercise
         fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': ' Ex. Bench Press', 'class': 'exercises-form-control'}),
+        }
