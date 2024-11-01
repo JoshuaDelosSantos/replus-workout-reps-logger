@@ -14,5 +14,5 @@ class SessionForm(forms.ModelForm):
         model = Session
         fields = ['name']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': ' Ex. Push Day', 'class': 'session-form-control'}),
+            'name': forms.TextInput(attrs={'placeholder': ' Ex. Push Day', 'class': 'sessions-form-control'}),
         }
