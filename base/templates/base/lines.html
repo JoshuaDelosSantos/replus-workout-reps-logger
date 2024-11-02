@@ -4,25 +4,44 @@
     Lines
 {% endblock %}
 
+<!--Lines content-->
 {% block content %}
-<h1>Lines for Exercise: {{ exercise.name }}</h1>
+<div class="lines-content-container">
+    <h1 class="lines-heading">{{ exercise.name }}</h1>
 
-{% if lines %}
-    <ul>
-        {% for line in lines %}
-            <li>{{ line.weight }} kg for {{ line.reps }} reps on {{ line.date }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No lines found for this exercise.</p>
-{% endif %}
+    <div class="lines-container">
+        {% if lines %}
+            <table class="lines-table">
+                <thead>
+                    <tr>
+                        <th>Weight</th>
+                        <th>Reps</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for line in lines %}
+                        <tr>
+                            <td>{{ line.weight }}</td>
+                            <td>{{ line.reps }}</td>
+                            <td>{{ line.date }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-lines">No lines found for this exercise.</p>
+        {% endif %}
+    </div>
 
-<h2>Add a New Line</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Line</button>
-</form>
+    <!--Lines form-->
+    <h2 class="lines-form-heading">Add a New Line</h2>
+    <form class="lines-form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="lines-form-button" type="submit">Save Line</button>
+    </form>
 
-<a href="{% url 'exercises' exercise.session.slug %}">Back to Exercises</a>
+    <a class="back-to-exercises-link" href="{% url 'exercises' exercise.session.slug %}">Back to Exercises</a>
+</div>
 {% endblock %}
