@@ -11,3 +11,4 @@ base/views/__pycache__
 users/views/__pycache__
 base/forms/__pycache__
 base/migrations
+base/viewModels/__pycache__
