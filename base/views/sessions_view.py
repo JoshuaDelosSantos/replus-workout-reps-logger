@@ -34,7 +34,6 @@ class SessionsView(LoginRequiredMixin, View):
         else:
             self._handle_add_session(request, view_model)
         
-        sessions = view_model.get_sessions()
         context = self._get_context(view_model)
         
         return render(request, 'base/sessions.html', context)
