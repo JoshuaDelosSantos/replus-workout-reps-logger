@@ -12,7 +12,13 @@
 
         <div class="sessions-container">
             {% for session in sessions %}
-                <a class="sessions-link" href="{% url 'exercises' session.slug %}">{{ session.name }}</a>
+                <a class="sessions-link" href="{% url 'exercises' session.slug %}">{{ session.name }}{{session.id}}</a>
+                <form class="delete-session-form" action="{% url 'sessions' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete_session" value="true">
+                    <input type="hidden" name="session_slug" value="{{ session.slug }}">
+                    <button type="submit" class="delete-session-button">Delete {{session.name}}</button>
+                </form>
             {% endfor %}
         </div>
 
