@@ -12,8 +12,8 @@ class SessionsViewModel:
     View model for the sessions view.
     
     Example use:
-        viewModel = SessionsViewModel(request.user)
-        sessions = viewModel.get_sessions()
+        view_model = SessionsViewModel(request.user)
+        sessions = view_model.get_sessions()
     """
     def __init__(self, user):
         """
@@ -36,34 +36,24 @@ class SessionsViewModel:
         """
         return SessionForm(data)
     
-    def _validate_form(self, data):
-        """
-        Validate the session form.
-        
-        Returns:
-            form: The validated form object.
-        """
-        return SessionForm(data)
-    
     def create_session(self, form):
         """
-        Create a new session for the authenticated user.
+        Create a new session for the authenticated user using the form data.
         
         Returns:
             success: True if the session was created successfully, False otherwise.
             result: None if success is True, the error otherwise.
         """
-        session = form.save(commit=False)
+        session = form.save(commit=False)  # 'commit=False' does not save to the database yet
         session.user = self.user
-        try:
-            session.save()
-            return True, None
-        except Exception as e:
-            return False, e
+
+        return session 
     
     def delete_session(self, session_slug):
         """
-        Delete a session for the authenticated user.
+        Delete a session for the authenticated user using the session slug.
         """
         session = Session.objects.get(slug=session_slug, user=self.user)
         session.delete()
+        
+        
