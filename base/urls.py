@@ -15,6 +15,7 @@ from .views.lines_view import LinesView
 urlpatterns = [
     path('', HomeView.as_view(), name="home"),
     path('sessions/', SessionsView.as_view(), name="sessions"),
+    path('sessions/delete/<slug:session_slug>/', SessionsView.as_view(), name='delete_session'),
     path('sessions/<slug:session_slug>/', ExerciseView.as_view(), name='exercises'),
     path('sessions/<slug:session_slug>/<slug:exercise_slug>/', LinesView.as_view(), name='lines'),
 ]
