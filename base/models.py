@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError 
 
-MAX_CHAR_FIELD = 50
+MAX_CHAR_FIELD = 25
 MAX_DIGITS = 5
 NUMBER_DECIMAL_PLACE = 2
 
