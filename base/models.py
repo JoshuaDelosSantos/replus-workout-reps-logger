@@ -40,7 +40,7 @@ class Session(models.Model):
         automatically set the slug based on the session name.
         """
         if Session.objects.filter(name__iexact=self.name, user=self.user).exists() and not self.pk:
-            raise ValidationError(f"A session with the name '{self.name}' already exists.")
+            raise ValidationError(f"A similar session to '{self.name}' already exists.")
         
         if not self.slug or self.slug != slugify(self.name):
             self.slug = slugify(self.name)
