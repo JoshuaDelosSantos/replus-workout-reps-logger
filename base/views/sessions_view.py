@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from base.viewModels.sessions_view_model import SessionsViewModel
+from django.core.exceptions import ValidationError
+
 
 class SessionsView(LoginRequiredMixin, View):
     """
@@ -27,15 +29,12 @@ class SessionsView(LoginRequiredMixin, View):
         """
         view_model = SessionsViewModel(request.user)
         
-        # There are only two possible POST requests: 
-        # Add a session or delete a session.
         if 'delete_session' in request.POST:
             self._handle_delete_session(request, view_model)
         else:
-            self._handle_add_session(request, view_model)
+            return self._handle_add_session(request, view_model)
         
         context = self._get_context(view_model)
-        
         return render(request, 'base/sessions.html', context)
 
     def _handle_delete_session(self, request, view_model):
@@ -65,10 +64,18 @@ class SessionsView(LoginRequiredMixin, View):
         form = view_model.get_session_form(request.POST)
         
         if form.is_valid():
-            # Using form data, create a new session for user.
-            session = view_model.create_session(form)
             try:
+                # Using form data, create a new session for user.
+                session = view_model.create_session(form)
                 session.save()
                 return redirect('sessions')
-            except Exception as e:
-                form.add_error(None, e.message)
+            except ValidationError as e:
+                form.add_error('name', e)
+        
+        # If form is invalid, display the form with the errors.
+        context = {
+            'sessions': view_model.get_sessions(),
+            'form': form
+        }
+        
+        return render(request, 'base/sessions.html', context)
