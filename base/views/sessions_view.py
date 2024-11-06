@@ -23,6 +23,7 @@ class SessionsView(LoginRequiredMixin, View):
         
         return render(request, 'base/sessions.html', context)
     
+    
     def post(self, request):
         """
         Handle POST requests: process the form to add a new session or delete a session.
@@ -37,6 +38,7 @@ class SessionsView(LoginRequiredMixin, View):
         context = self._get_context(view_model)
         return render(request, 'base/sessions.html', context)
 
+
     def _handle_delete_session(self, request, view_model):
         """
         Handle the deletion of a session.
@@ -44,6 +46,7 @@ class SessionsView(LoginRequiredMixin, View):
         session_slug = request.POST.get('session_slug')
         view_model.delete_session(session_slug)
         return redirect('sessions')
+    
     
     def _get_context(self, view_model):
         """
@@ -56,6 +59,7 @@ class SessionsView(LoginRequiredMixin, View):
             'sessions': sessions,
             'form': form
         }
+    
     
     def _handle_add_session(self, request, view_model):
         """
