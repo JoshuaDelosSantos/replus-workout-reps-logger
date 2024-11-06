@@ -27,6 +27,7 @@
         <form class="sessions-form" method="post">
             {% csrf_token %}
             {{ form.name }}
+            {{form.name.errors}}
             <button class="sessions-form-button" type="submit">Add</button>
         </form>
     {% else %}
