@@ -60,6 +60,10 @@ class SessionsView(LoginRequiredMixin, View):
     def _handle_add_session(self, request, view_model):
         """
         Handle adding a session.
+        
+        Return:
+            - If the form is valid, redirect to the sessions page.
+            - If the form is invalid, display the form with the errors. 
         """
         form = view_model.get_session_form(request.POST)
         
