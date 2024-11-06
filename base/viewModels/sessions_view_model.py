@@ -21,12 +21,14 @@ class SessionsViewModel:
         """
         self.user = user
     
+    
     def get_sessions(self):
         """
         Get the list of sessions for the authenticated user.
         """
         user = AppUser(self.user)
         return user.get_user_sessions()
+    
     
     def get_session_form(self, data=None):
         """
@@ -36,18 +38,19 @@ class SessionsViewModel:
         """
         return SessionForm(data)
     
+    
     def create_session(self, form):
         """
         Create a new session for the authenticated user using the form data.
         
         Returns:
-            success: True if the session was created successfully, False otherwise.
-            result: None if success is True, the error otherwise.
+            session: The new session
         """
         session = form.save(commit=False)  # 'commit=False' does not save to the database yet
         session.user = self.user
 
         return session 
+    
     
     def delete_session(self, session_slug):
         """
