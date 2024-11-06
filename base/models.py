@@ -10,9 +10,12 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError 
 
+
+
 MAX_CHAR_FIELD = 25
 MAX_DIGITS = 5
 NUMBER_DECIMAL_PLACE = 2
+
 
 
 class Session(models.Model):
@@ -28,11 +31,13 @@ class Session(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sessions')  # Link to User
     
+    
     def __str__(self):
         """
         Returns a string representation of the session.
         """
         return self.name
+    
     
     def save(self, *args, **kwargs):
         """
@@ -47,6 +52,7 @@ class Session(models.Model):
             
         super().save(*args, **kwargs)
     
+
 
 class Exercise(models.Model):
     """
@@ -63,21 +69,28 @@ class Exercise(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='exercises')
     
+    
     def __str__(self):
         """
         Returns a string representation of the exercise.
         """
         return self.name
     
+    
     def save(self, *args, **kwargs):
         """
-        Override the save method to automatically set the slug based on the exercise name.
+        Override the save method to enforce uniqueness of the exercise name within a session
+        and automatically set the slug based on the exercise name.
         """
+        if Exercise.objects.filter(name__iexact=self.name, session=self.session, user=self.user).exists() and not self.pk:
+            raise ValidationError(f"A similar exercise to '{self.name}' already exists.")
+        
         # Automatically generate the slug from the name
         if not self.slug or self.slug != slugify(self.name):
             self.slug = slugify(self.name)
         
         super().save(*args, **kwargs)
+    
     
     def determine_average_reps(self):
         """
@@ -86,6 +99,7 @@ class Exercise(models.Model):
         total_reps = sum(line.reps for line in self.lines.all())
         count = self.lines.count()
         return total_reps / count if count > 0 else 0
+    
     
     
 class Line(models.Model):
@@ -107,11 +121,13 @@ class Line(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lines') 
     
+    
     def __str__(self):
         """
         Returns a string representation of the line.
         """
         return f"{self.weight} for {self.reps} reps at {self.date}"
+    
     
     def save(self, *args, **kwargs):
         """
