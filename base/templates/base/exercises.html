@@ -24,6 +24,7 @@
     <form class="exercises-form" method="post">
         {% csrf_token %}
         {{ form.name }}
+        {{ form.name.errors }}
         <button class="exercises-form-button" type="submit">Add</button>
     </form>
 
