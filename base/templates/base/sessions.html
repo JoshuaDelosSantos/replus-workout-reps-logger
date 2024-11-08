@@ -12,17 +12,27 @@
 
         <div class="sessions-container">
             {% for session in sessions %}
+                <!-- Display session name as link to exercises page -->
                 <a class="sessions-link" href="{% url 'exercises' session.slug %}">{{ session.name }}{{session.id}}</a>
+                
+                <!-- Delete session form -->
+                <!-- Form submits to the sessions URL -->
                 <form class="delete-session-form" action="{% url 'sessions' %}" method="post" style="display:inline;">
                     {% csrf_token %}
+
+                    <!-- Hidden field to identify delete action -->
                     <input type="hidden" name="delete_session" value="true">
+
+                    <!-- Pass session identifier -->
                     <input type="hidden" name="session_slug" value="{{ session.slug }}">
+
+                    <!-- Delete button triggers form submission -->
                     <button type="submit" class="delete-session-button">Delete {{session.name}}</button>
                 </form>
             {% endfor %}
         </div>
 
-        <!--Session form-->
+        <!--Session creation form-->
         <h2 class="sessions-form-heading">Add a new session</h2>
         <form class="sessions-form" method="post">
             {% csrf_token %}
