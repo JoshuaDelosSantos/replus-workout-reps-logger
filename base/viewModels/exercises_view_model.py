@@ -67,3 +67,12 @@ class ExerciseViewModel:
         exercise.user = self.user
         
         return exercise
+    
+    
+    def delete_exercise(self, exercise_slug, session_slug):
+        """
+        Delete an exercise for the authenticated user using the exercise slug.
+        """
+        session = self.get_session(session_slug)
+        exercise = get_object_or_404(Exercise, session=session, slug=exercise_slug, user=self.user)
+        exercise.delete()

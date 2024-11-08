@@ -35,9 +35,11 @@ class ExerciseView(View):
         """
         Handle POST requests to process the form to add a new exercise.
         """
-        session = self.view_model.get_session(session_slug)
-        
-        return self._handle_add_exercise(request, session)
+        if 'delete_exercise' in request.POST:
+            return self._handle_delete_exercise(request)
+        else:
+            session = self.view_model.get_session(session_slug)
+            return self._handle_add_exercise(request, session)
     
     
     def _get_context(self, session_slug):
@@ -72,7 +74,7 @@ class ExerciseView(View):
                 # Using form data, create a new session for user.
                 exercise = self.view_model.create_exercise(form, session)
                 exercise.save()
-                redirect('exercises', session_slug=session.slug)
+                return redirect('exercises', session_slug=session.slug)
             except ValidationError as e:
                 form.add_error('name', e)
         
@@ -84,3 +86,13 @@ class ExerciseView(View):
         }
         
         return render(request, 'base/exercises.html', context)
+    
+    
+    def _handle_delete_exercise(self, request):
+        """
+        Handle the deletion of an exercise.
+        """
+        exercise_slug = request.POST.get('exercise_slug')
+        session_slug = request.POST.get('session_slug')
+        self.view_model.delete_exercise(exercise_slug, session_slug)
+        return redirect('exercises', session_slug=session_slug)

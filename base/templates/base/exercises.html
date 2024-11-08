@@ -12,7 +12,24 @@
     <div class="exercises-container">
         {% if exercises %}
             {% for exercise in exercises %}
+                <!-- Display exercise name as a link to its lines -->
                 <a class="exercise-link" href="{% url 'lines' session.slug exercise.slug %}">{{ exercise.name }}</a>
+                
+                <!-- Delete exercise form -->
+                <!-- Form submits to the exercises URL with the session slug -->
+                <form class="delete-exercise-form" action="{% url 'exercises' session.slug %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+
+                    <!-- Hidden fields to identify what action to take -->
+                    <input type="hidden" name="delete_exercise" value="true">
+
+                    <!-- Pass session and exercise identifiers -->
+                    <input type="hidden" name="session_slug" value="{{ session.slug }}">
+                    <input type="hidden" name="exercise_slug" value="{{ exercise.slug }}">
+                    
+                    <!-- Delete button triggers form submission -->
+                    <button type="submit" class="delete-exercise-button">Delete {{exercise.name}}</button>
+                </form>
             {% endfor %}
         {% else %}
             <p class="no-exercises">No exercises found for this session.</p>
