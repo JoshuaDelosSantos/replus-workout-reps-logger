@@ -28,18 +28,10 @@ class LinesView(View):
         """
         Handle GET requests to display the details of lines in an exercise.
         """
-        user = AppUser(request.user)
-        exercise = get_object_or_404(Exercise, slug=exercise_slug, session__slug=session_slug, user=request.user)
-        lines = user.get_lines_for_exercise(exercise_slug)
-        form = LineForm()
-        
-        context = {
-            'exercise': exercise,
-            'lines': lines,
-            'form': form
-        }
+        context = self._get_context(session_slug, exercise_slug)
         
         return render(request, 'base/lines.html', context)
+    
     
     def post(self, request, session_slug, exercise_slug):
         """
@@ -67,3 +59,21 @@ class LinesView(View):
         }
         
         return render(request, 'base/lines.html', context)
+    
+    
+    def _get_context(self, session_slug, exercise_slug):
+        """
+        Get the context for the view.
+        
+        Returns:
+            dict: The context for the view.
+        """
+        exercise = self.view_model.get_exercise(session_slug, exercise_slug)
+        lines = self.view_model.get_lines(session_slug, exercise_slug)
+        form = self.view_model.get_line_form()
+        
+        return {
+            'exercise': exercise,
+            'lines': lines,
+            'form': form
+        }
