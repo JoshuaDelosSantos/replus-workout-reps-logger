@@ -9,11 +9,21 @@ from django.core.exceptions import ValidationError
 from base.models import Exercise, Line
 from base.forms.line_form import LineForm
 from users.api.app_user import AppUser
+from base.viewModels.lines_view_model import LinesViewModel
 
 class LinesView(View):
     """
     A class-based view for displaying and adding lines to an exercise.
     """
+    def setup(self, request, *args, **kwargs):
+        """
+        Initialize view_model before dispatch.
+        Called by Django for each request.
+        """
+        super().setup(request, *args, **kwargs)
+        self.view_model = LinesViewModel(request.user)
+    
+    
     def get(self, request, session_slug, exercise_slug):
         """
         Handle GET requests to display the details of lines in an exercise.
