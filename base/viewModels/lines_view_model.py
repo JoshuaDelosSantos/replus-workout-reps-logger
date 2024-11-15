@@ -74,4 +74,5 @@ class LinesViewModel:
         line = form.save(commit=False)
         line.user = self.user
         line.exercise = exercise
-        line.save()
+        
+        return line
