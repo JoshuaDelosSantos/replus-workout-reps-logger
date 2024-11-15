@@ -37,26 +37,10 @@ class LinesView(View):
         """
         Handle POST requests to process the form to add a new line.
         """
-        user = AppUser(request.user)
-        exercise = get_object_or_404(Exercise, slug=exercise_slug, session__slug=session_slug, user=request.user)
-        form = LineForm(request.POST)
+        exercise = self.view_model.get_exercise(session_slug, exercise_slug)
+        self._handle_add_line(request, exercise)
         
-        if form.is_valid():
-            line = form.save(commit=False)
-            line.user = request.user
-            line.exercise = exercise
-            try:
-                line.save()
-                return redirect('lines', session_slug=session_slug, exercise_slug=exercise_slug)
-            except ValidationError as e:
-                form.add_error(None, e)
-        
-        lines = user.get_lines_for_exercise(exercise_slug)
-        context = {
-            'exercise': exercise,
-            'lines': lines,
-            'form': form
-        }
+        context = self._get_context(session_slug, exercise_slug)
         
         return render(request, 'base/lines.html', context)
     
@@ -77,3 +61,32 @@ class LinesView(View):
             'lines': lines,
             'form': form
         }
+        
+    
+    def _handle_add_line(self, request, exercise):
+        """
+        Handle adding a line.
+        
+        Returns:
+            HttpResponse: The response to the request.
+        """
+        form = self.view_model.get_line_form(request.POST)
+        session = exercise.session
+        
+        if form.is_valid():
+            try:
+                # Using form data, create a new line for user.
+                line = self.view_model.create_line(form, exercise)
+                line.save()
+                return redirect('lines', session_slug=session.slug, exercise_slug=exercise.slug)
+            except ValidationError as e:
+                form.add_error(None, e)
+        
+        # If form is invalid, display the form with the errors.
+        context = {
+            'exercise': exercise,
+            'lines': self.view_model.get_lines(session.slug, exercise.slug),
+            'form': form
+        }
+        
+        return render(request, 'base/lines.html', context)
