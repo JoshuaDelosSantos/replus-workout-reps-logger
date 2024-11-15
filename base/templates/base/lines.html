@@ -1,8 +1,10 @@
 {% extends 'main.html' %}
 
+
 {% block title %}
     Lines
 {% endblock %}
+
 
 <!--Lines content-->
 {% block content %}
@@ -11,6 +13,7 @@
 
     <div class="lines-container">
         {% if lines %}
+            <!--Display lines in a table-->
             <table class="lines-table">
                 <thead>
                     <tr>
@@ -41,6 +44,7 @@
         {{ form.as_p }}
         <button class="lines-form-button" type="submit">Save Line</button>
     </form>
+
 
     <a class="back-to-exercises-link" href="{% url 'exercises' exercise.session.slug %}">Back to Exercises</a>
 </div>
