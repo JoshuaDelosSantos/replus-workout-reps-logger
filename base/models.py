@@ -118,7 +118,6 @@ class Line(models.Model):
     weight = models.DecimalField(max_digits=MAX_DIGITS, decimal_places=NUMBER_DECIMAL_PLACE)
     reps = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(unique=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lines') 
     
     
@@ -128,12 +127,3 @@ class Line(models.Model):
         """
         return f"{self.weight} for {self.reps} reps at {self.date}"
     
-    
-    def save(self, *args, **kwargs):
-        """
-        Override the save method to automatically set the slug based on the exercise name and date.
-        """
-        if not self.slug or self.slug != slugify(f"{self.exercise.name}-{self.date}"):
-            self.slug = slugify(f"{self.exercise.name}-{self.date}")
-        
-        super().save(*args, **kwargs)
