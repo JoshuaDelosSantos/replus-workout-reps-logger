@@ -20,6 +20,7 @@
                         <th>Weight</th>
                         <th>Reps</th>
                         <th>Date</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,14 @@
                             <td>{{ line.weight }}</td>
                             <td>{{ line.reps }}</td>
                             <td>{{ line.date }}</td>
+                            <td>
+                                <!--Delete line form-->
+                                <form class="delete-line-form" action="{% url 'lines' exercise.session.slug exercise.slug %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="delete_line" value="true">
+                                    <input type="hidden" name="line_id" value="{{ line.id }}">
+                                    <button type="submit" class="delete-line-button">Delete</button>
+                                </form>
                         </tr>
                     {% endfor %}
                 </tbody>
