@@ -8,6 +8,7 @@ from base.models import Exercise, Session
 from users.api.app_user import AppUser
 from base.forms.line_form import LineForm
 from django.shortcuts import get_object_or_404
+from base.models import Line
 
 
 class LinesViewModel:
@@ -76,3 +77,21 @@ class LinesViewModel:
         line.exercise = exercise
         
         return line
+    
+    
+    def delete_line(self, session_slug, exercise_slug, line_id):
+        """
+        Delete a line for the authenticated user using the line ID.
+        
+        Args:
+            session_slug: Slug of the session
+            exercise_slug: Slug of the exercise
+            line_id: ID of the line to delete
+        """
+        exercise = self.get_exercise(session_slug, exercise_slug)
+        line = get_object_or_404(Line, 
+            id=line_id,
+            exercise=exercise,
+            user=self.user
+        )
+        line.delete()

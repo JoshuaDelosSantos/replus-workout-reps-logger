@@ -37,12 +37,12 @@ class LinesView(View):
         """
         Handle POST requests to process the form to add a new line.
         """
-        exercise = self.view_model.get_exercise(session_slug, exercise_slug)
-        self._handle_add_line(request, exercise)
+        if 'delete_line' in request.POST:
+            return self._handle_delete_line(request)
+        else:
+            exercise = self.view_model.get_exercise(session_slug, exercise_slug)
+            return self._handle_add_line(request, exercise)
         
-        context = self._get_context(session_slug, exercise_slug)
-        
-        return render(request, 'base/lines.html', context)
     
     
     def _get_context(self, session_slug, exercise_slug):
@@ -90,3 +90,17 @@ class LinesView(View):
         }
         
         return render(request, 'base/lines.html', context)
+    
+    
+    def _handle_delete_line(self, request):
+        """
+        Handle deleting a line.
+        """
+        line_id = request.POST.get('line_id')
+        exercise_slug = request.POST.get('exercise_slug')
+        session_slug = request.POST.get('session_slug')
+        
+        self.view_model.delete_line(session_slug, exercise_slug, line_id)
+        
+        return redirect('lines', session_slug=session_slug, exercise_slug=exercise_slug)
+        
