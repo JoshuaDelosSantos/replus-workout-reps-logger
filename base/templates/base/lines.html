@@ -28,7 +28,7 @@
                         <tr>
                             <td>{{ line.weight }}</td>
                             <td>{{ line.reps }}</td>
-                            <td>{{ line.date }}</td>
+                            <td>{{ line.date|date:"m.d.y" }}</td>
                             <td>
                                 <!--Delete line form-->
                                 <form class="delete-line-form" action="{% url 'lines' exercise.session.slug exercise.slug %}" method="post" style="display:inline;">
