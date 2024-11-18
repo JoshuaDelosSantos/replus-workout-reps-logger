@@ -1,0 +1,35 @@
+/* --Lines app-- */
+.lines-content-container {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* Standard */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.exercise-container {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* Standard */
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lines-table {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.lines-table th{
+    color: white;
+    padding: 20px;
+}
+
+.line-table td{
+    padding: 10px;
+}
