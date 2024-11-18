@@ -17,19 +17,19 @@
             <table class="lines-table">
                 <thead>
                     <tr>
-                        <th>Weight</th>
-                        <th>Reps</th>
-                        <th>Date</th>
-                        <th></th>
+                        <th class="main-section">Weight</th>
+                        <th class="main-section">Reps</th>
+                        <th class="main-section">Date</th>
+                        <th class="delete-button-section"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for line in lines %}
                         <tr>
-                            <td>{{ line.weight }}</td>
-                            <td>{{ line.reps }}</td>
-                            <td>{{ line.date|date:"m.d.y" }}</td>
-                            <td>
+                            <td class="main-section">{{ line.weight }}</td>
+                            <td class="main-section">{{ line.reps }}</td>
+                            <td class="main-section">{{ line.date|date:"m.d.y" }}</td>
+                            <td class="delete-button-section">
                                 <!--Delete line form-->
                                 <form class="delete-line-form" action="{% url 'lines' exercise.session.slug exercise.slug %}" method="post" style="display:inline;">
                                     {% csrf_token %}
