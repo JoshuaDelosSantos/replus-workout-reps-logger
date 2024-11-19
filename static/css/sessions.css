@@ -11,6 +11,7 @@
     margin-top: 50px;
 }
 
+
 .sessions-container {
     display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
     display: -ms-flexbox;      /* TWEENER - IE 10 */
@@ -20,21 +21,48 @@
     justify-content: center;
 }
 
+
+/* --Session Item includes the Delete button-- */
+.session-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    background-color: rgba(47, 47, 50, 0.2);
+    border-radius: 10px;
+}
+
+
 .sessions-link {
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
     color: white;
     text-decoration: none;
-    text-align: center;
-    width: 300px;
+    width: 180px;
+    margin: 3px;
+    
     background-color: #2f2f32;
-    margin: 1px auto;
     box-shadow: 3px 15px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+}
+
+.delete-session-button {
+    background-color: #2f2f32;
+    color: white;
+    border-color: #1A1A1D;
+    padding: 20px;
+    border-radius: 10px;
+    height: 100%;
+    border: 1px;
+    margin: 3px;
+    box-shadow: 3px 15px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sessions-link:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
+
 
 /* --Sessions form-- */
 .sessions-form-heading {
@@ -42,12 +70,14 @@
     padding-top: 20px;
 }
 
+
 .sessions-form-control {
     background-color: whitesmoke;
     border: 1px solid #909091;
     border-radius: 10px;
     padding: 3px;
 }
+
 
 .sessions-form-button {
     background-color: #4caf50;

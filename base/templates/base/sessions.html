@@ -12,23 +12,22 @@
 
         <div class="sessions-container">
             {% for session in sessions %}
-                <!-- Display session name as link to exercises page -->
-                <a class="sessions-link" href="{% url 'exercises' session.slug %}">{{ session.name }}{{session.id}}</a>
-                
-                <!-- Delete session form -->
-                <!-- Form submits to the sessions URL -->
-                <form class="delete-session-form" action="{% url 'sessions' %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-
-                    <!-- Hidden field to identify delete action -->
-                    <input type="hidden" name="delete_session" value="true">
-
-                    <!-- Pass session identifier -->
-                    <input type="hidden" name="session_slug" value="{{ session.slug }}">
-
-                    <!-- Delete button triggers form submission -->
-                    <button type="submit" class="delete-session-button">Delete {{session.name}}</button>
-                </form>
+                <!-- Session Item Container -->
+                <div class="session-item">
+                    <!-- Display session name as link to exercises page -->
+                    <a class="sessions-link" href="{% url 'exercises' session.slug %}">{{ session.name }}{{ session.id }}</a>
+                    
+                    <!-- Delete session form -->
+                    <form class="delete-session-form" action="{% url 'sessions' %}" method="post">
+                        {% csrf_token %}
+                        <!-- Hidden fields -->
+                        <input type="hidden" name="delete_session" value="true">
+                        <input type="hidden" name="session_slug" value="{{ session.slug }}">
+                        
+                        <!-- Delete button -->
+                        <button type="submit" class="delete-session-button">X</button>
+                    </form>
+                </div>
             {% endfor %}
         </div>
 
@@ -37,7 +36,7 @@
         <form class="sessions-form" method="post">
             {% csrf_token %}
             {{ form.name }}
-            {{form.name.errors}}
+            {{ form.name.errors }}
             <button class="sessions-form-button" type="submit">Add</button>
         </form>
     {% else %}
