@@ -41,11 +41,11 @@
     text-decoration: none;
     width: 180px;
     margin: 3px;
-    
     background-color: #2f2f32;
     box-shadow: 3px 15px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
+
 
 .delete-session-button {
     background-color: #2f2f32;
@@ -58,6 +58,7 @@
     margin: 3px;
     box-shadow: 3px 15px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 .sessions-link:hover {
     background-color: rgba(255, 255, 255, 0.1);
