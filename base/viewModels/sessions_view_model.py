@@ -1,23 +1,39 @@
 """
+
 Author: Joshua Delos Santos
 Date: 03/11/2024
+
+
+This file defines the view model for the sessions view.
+It handles data acquisition for the sessions view.
+
+
+Example:
+    view_model = SessionsViewModel(request.user)
+    sessions = view_model.get_sessions()
+    form = view_model.get_session_form(data=request.POST)
+    
 """
+
 
 from base.models import Session
 from users.api.app_user import AppUser
 from base.forms.session_form import SessionForm
 
+
 class SessionsViewModel:
     """
     View model for the sessions view.
     
-    Example use:
+    Example:
         view_model = SessionsViewModel(request.user)
         sessions = view_model.get_sessions()
     """
+    
+    
     def __init__(self, user):
         """
-        Initialize the view model with the authenticated user.
+        Initialise the view model with the authenticated user.
         """
         self.user = user
     
@@ -52,7 +68,7 @@ class SessionsViewModel:
         return session 
     
     
-    def delete_session(self, session_slug):
+    def delete_session_using_slug(self, session_slug):
         """
         Delete a session for the authenticated user using the session slug.
         """
