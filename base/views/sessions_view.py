@@ -50,7 +50,7 @@ class SessionsView(LoginRequiredMixin, View):
         Handle the deletion of a session.
         """
         session_slug = request.POST.get('session_slug')
-        self.view_model.delete_session(session_slug)
+        self.view_model.delete_session_using_slug(session_slug)
         return redirect('sessions')
     
     
