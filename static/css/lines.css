@@ -33,3 +33,34 @@
 .line-table td{
     padding: 10px;
 }
+
+.lines-form {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* Standard */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.lines-form-button {
+    background-color: #4caf50;
+    color: white;
+    border-color: #1A1A1D;
+    box-shadow: 3px 15px 8px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+}
+
+.delete-line-button {
+    background-color: #2f2f32;
+    color: white;
+    border-color: #1A1A1D;
+    padding: 20px;
+    border-radius: 10px;
+    height: 100%;
+    border: 1px;
+    margin: 3px;
+    box-shadow: 3px 15px 8px rgba(0, 0, 0, 0.1);
+}
