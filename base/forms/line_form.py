@@ -13,3 +13,11 @@ class LineForm(forms.ModelForm):
     class Meta:
         model = Line
         fields = ['weight', 'reps']
+        labels = {
+            'weight': 'Weight',  # Custom label for the weight field
+            'reps': 'Reps  ',  # Custom label for the reps field
+        }
+        widgets = {
+            'weight': forms.TextInput(attrs={'class': 'weight-input'}),
+            'reps': forms.TextInput(attrs={'class': 'reps-input'}),
+        }
