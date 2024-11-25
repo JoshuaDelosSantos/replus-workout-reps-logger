@@ -76,3 +76,15 @@
     border-radius: 10px;
     box-shadow: 3px 15px 8px rgba(0, 0, 0, 0.1);
 }
+
+.weight-input {
+    width: 100px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.reps-input {
+    width: 100px;
+    border-radius: 10px;
+    margin-left: 20px;
+}
