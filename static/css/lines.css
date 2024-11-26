@@ -34,6 +34,10 @@
     padding: 10px;
 }
 
+.lines-form-heading {
+    margin-bottom: auto;
+}
+
 .lines-form {
     display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
     display: -ms-flexbox;      /* TWEENER - IE 10 */
@@ -42,7 +46,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
 }
 
 .lines-form-button {
@@ -51,8 +54,12 @@
     border-color: #1A1A1D;
     box-shadow: 3px 15px 8px rgba(0, 0, 0, 0.1);
     gap: 10px;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-radius: 10px;
+    margin-top: 25px;
 }
 
 .delete-line-button {
@@ -80,11 +87,10 @@
 .weight-input {
     width: 100px;
     border-radius: 10px;
-    margin-left: 10px;
+    
 }
 
 .reps-input {
     width: 100px;
     border-radius: 10px;
-    margin-left: 20px;
 }
