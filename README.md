@@ -1,4 +1,5 @@
 # Replus
 
-A full stack web app using the Django framework.
-Still a working progress.
+Initially thought of building a web app.
+
+Focusing on IOS app instead.
